@@ -13,7 +13,7 @@ data = {
 }
 
 df = pd.DataFrame(data)
-
+print(df.head())
 # Encode categorical variables
 encoders = {}
 for col in ["project_type", "perf_need", "experience", "stack"]:
@@ -26,6 +26,11 @@ X = df[["project_type", "team_size", "perf_need", "experience"]]
 y = df["stack"]
 model = DecisionTreeClassifier()
 model.fit(X, y)
+
+y_pred = model.predict(X)
+# Evaluate model
+accuracy = (y_pred == y).mean()
+print(f"Training accuracy: {accuracy:.2f}")
 
 # Save model
 with open("model.pkl", "wb") as f:
